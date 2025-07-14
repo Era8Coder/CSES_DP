@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+#include<climits>
+typedef long long ll;
+#define MOD 1e10
+using namespace std;
+
+int main(){
+    int n,x;    cin>>n>>x;
+    vector<ll> c(n);
+    for(int i=0; i<n; i++){
+        cin>>c[i];
+    }
+    vector<ll> dp(x+1,MOD);
+    dp[0]=0;
+
+    for(int i=1; i<=x; i++){            // traversing over all sums from 1 to x
+        for(int j=0; j<n; j++){         // iterating over all coins
+            if(c[j]>i || dp[i-c[j]]==MOD){
+                continue;
+            }
+            dp[i]=min(dp[i],dp[i-c[j]]+1);      // transistion condition
+        }   
+    }
+
+    if(dp[x] != MOD){
+        cout<<dp[x]<<endl;
+    }else{
+        cout<<-1<<endl;
+    }
+    return 0;
+}
